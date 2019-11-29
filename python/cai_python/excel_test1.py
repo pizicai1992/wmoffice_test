@@ -1,11 +1,12 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 import sys
+import openpyxl
+from oracle_util import DBUtils as oracle
+from getconn_util import get_conn
 reload(sys)
 sys.setdefaultencoding('utf-8')
 
-import openpyxl
-from oracle_util import DBUtils as oracle
 
 wb = openpyxl.load_workbook('C:/Users/Administrator/Desktop/Info.xlsx')
 sheets = wb.sheetnames
@@ -39,7 +40,7 @@ for i in result_list:
     for j in i:
         print 'cell is:',j
 
-cx_ora_link = 'mysql/mysql@10.14.250.51:1521/dfdb'
+cx_ora_link = get_conn('mysql').cxoracle_link()
 insert_sql="insert into T_ODI_HIVESYN_CONFIG " \
            "VALUES (:GAMEID,:GAMENAME,:MONTH,:EVENT_URL,to_date(:START_TIME,'YYYY-MM-DD HH24:MI:SS')," \
            "to_date(:END_TIME,'YYYY-MM-DD HH24:MI:SS')," \

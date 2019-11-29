@@ -2,8 +2,10 @@
 # -*- coding: UTF-8 -*-
 
 from pyhive import hive
+from config_parse import GetClusterConn as getconn
 
-conn = hive.Connection(host='10.14.240.254', port=10182, username="impala",password='impala_+-', auth='LDAP')
+conn_dict = getconn('hive-jdbc').getconn_config()
+conn = hive.Connection(auth='LDAP', **conn_dict)
 query_sql = "select * from bi_dwd.t_dwd_acct_000003_chardata t where par_dt='2019-09-28' limit 30"
 curosr = conn.cursor()
 curosr.execute("set role admin")

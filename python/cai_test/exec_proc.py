@@ -3,6 +3,7 @@
 
 import cx_Oracle as cx
 from optparse import OptionParser
+from ..cai_python.getconn_util import get_conn
 
 #声明变量
 parser = OptionParser()
@@ -13,7 +14,8 @@ parser.add_option("-d", "--date", dest = "date", help = "data date")
 proc = options.proc
 gameId = options.game
 dataDate = options.date
-conn = cx.connect("hive/hive_2017@//10.14.250.17:1521/dfdb")
+connlink = get_conn('hive').cxoracle_link()
+conn = cx.connect(connlink)
 cursor = conn.cursor()
 
 cursor.prepare("select count(*) from USER_ARGUMENTS where lower(OBJECT_NAME) = :proc and IN_OUT='OUT'")

@@ -7,6 +7,7 @@ import subprocess
 import cx_Oracle
 import sys
 import commands
+from ..cai_python.getconn_util import get_conn
 
 parser = OptionParser()
 parser.add_option("-g", "--game", dest = "game", help = "game ID")
@@ -64,7 +65,9 @@ def load_oracle(gameid,keyid,date,*type):
         del_sql = "delete from "+v_table+" where logtime="+ora_data_time+" and gameid="+v_game+" and keyid="+v_key
         print 'Delete SQL is :', del_sql
         # 删除Oracle数据
-        db_con=cx_Oracle.connect('hive/hive_2017@10.14.250.16:1521/dfdb')
+
+        connlink = get_conn('hive').cxoracle_link()
+        db_con=cx_Oracle.connect(connlink)
         cursor = db_con.cursor()
         try:
                 cursor.execute(del_sql)
@@ -79,7 +82,7 @@ def load_oracle(gameid,keyid,date,*type):
                 db_con.close()
 
         # 使用sqlldr导入
-        sqlldr_command = ('/opt/app/oracle/11.2.0/bin/sqlldr hive/hive_2017@10.14.250.16:1521/dfdb control='
+        sqlldr_command = ('/opt/app/oracle/11.2.0/bin/sqlldr '+ connlink +' control='
         +v_ctlfile+' data='+hive_data+' log='+v_sqllog+' bad='+v_badfile)
         exec_sqlldr = subprocess.Popen(sqlldr_command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
         exec_sqlldr.wait()

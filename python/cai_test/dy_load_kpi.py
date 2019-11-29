@@ -8,6 +8,7 @@ import cx_Oracle
 import sys
 import commands
 import datetime
+from ..cai_python.getconn_util import get_conn
 
 
 v_datapath='/mnt/data0/logs/dataware_house/to_oracle_data/clientgame'
@@ -17,6 +18,8 @@ v_table = ''
 v_ctlfile = ''
 v_sqllog = ''
 v_badfile = ''
+
+conn = get_conn('hive').cxoracle_link()
 
 def load_oracle(v_game,v_key,v_date,*type):
         "将hive计算的kpi数据导出data文件并用sqlldr导入到Oracle中"
@@ -59,7 +62,7 @@ def load_oracle(v_game,v_key,v_date,*type):
         del_sql = "delete from "+v_table+" where logtime="+ora_data_time+" and gameid="+v_game+" and keyid="+v_key
         print 'Delete SQL is :', del_sql
         # 删除Oracle数据
-        db_con=cx_Oracle.connect('hive/hive_2017@10.14.250.16:1521/dfdb')
+        db_con=cx_Oracle.connect(conn)
         cursor = db_con.cursor()
         try:
                 cursor.execute(del_sql)
@@ -74,8 +77,8 @@ def load_oracle(v_game,v_key,v_date,*type):
                 db_con.close()
 
         # 使用sqlldr导入
-        sqlldr_command = ('/opt/app/oracle/11.2.0/bin/sqlldr hive/hive_2017@10.14.250.16:1521/dfdb control='
-        +v_ctlfile+' data='+hive_data+' log='+v_sqllog+' bad='+v_badfile)
+        sqlldr_command = ('/opt/app/oracle/11.2.0/bin/sqlldr ' + conn + 'control= '
+         + v_ctlfile + ' data='+hive_data+' log='+v_sqllog+' bad='+v_badfile)
         exec_sqlldr = subprocess.Popen(sqlldr_command,shell=True,stdout=subprocess.PIPE,stderr=subprocess.STDOUT)
         exec_sqlldr.wait()
         sqlldr_output = exec_sqlldr.stdout.read()

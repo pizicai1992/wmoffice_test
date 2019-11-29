@@ -11,6 +11,7 @@ import jieba
 import cx_Oracle as cx
 import os
 import sys
+from ..cai_python.getconn_util import get_conn
 reload(sys)
 sys.setdefaultencoding("utf-8")
 os.environ['NLS_LANG'] = 'SIMPLIFIED CHINESE_CHINA.UTF8'
@@ -18,7 +19,7 @@ os.environ['NLS_LANG'] = 'SIMPLIFIED CHINESE_CHINA.UTF8'
 class ora_Until():
     def __init__(self):
 
-        self.ora_conn = 'hive/hive_2017@10.14.250.17:1521/dfdb'
+        self.ora_conn = get_conn('hive').cxoracle_link()
         self.db_conn = cx.connect(self.ora_conn)
         self.cursor = self.db_conn.cursor()
         self.sql = "select keyword from t_dic_hivedw_keyword where key_comment = :key_comment"

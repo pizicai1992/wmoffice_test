@@ -5,11 +5,13 @@ from impala.dbapi import connect
 from impala.util import *
 import csv
 import argparse
+from config_parse import GetClusterConn as getconn
 
+conn_dict = getconn('hive-jdbc').getconn_config()
 
 class ImpalaUtil():
-    def __init__(self, host='10.14.240.254', port=7999, user='impala', password='impala_+-', auth_mechanism='LDAP'):
-        self.conn = connect(host, port, user=user, password=password, auth_mechanism=auth_mechanism)
+    def __init__(self, host, port, user, password, auth_mechanism='LDAP'):
+        self.conn = connect(auth_mechanism=auth_mechanism, **conn_dict)
         self.cursor = self.conn.cursor()
 
     def _close(self):

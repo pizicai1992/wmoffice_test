@@ -3,9 +3,11 @@
 
 import cx_Oracle as cx
 from optparse import OptionParser
+from ..cai_python.getconn_util import get_conn
 
 column = ()
-conn = cx.connect("bitask/viewsonic2010@10.14.250.9:1521/wmdw")
+connlink = get_conn('newdb').cxoracle_link()
+conn = cx.connect(connlink)
 cursor = conn.cursor()
 tab_name = 't_dw_dota2_glog_dotalink'
 cursor.prepare("select lower(column_name)||'=string' from user_tab_columns where lower(table_name) = :tab_name order by column_id")

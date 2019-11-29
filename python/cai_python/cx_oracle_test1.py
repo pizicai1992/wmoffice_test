@@ -2,8 +2,9 @@
 # -*- coding: UTF-8 -*-
 
 import cx_Oracle as cx
+from getconn_util import get_conn
 
-cx_ora_link = 'bitask/viewsonic2010@10.14.250.9:1521/wmdw'
+cx_ora_link = get_conn('hive').cxoracle_link()
 ora_sql = """
 select column_name || '=' || decode(data_type,
                                         'NUMBER',

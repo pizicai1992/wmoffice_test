@@ -8,6 +8,7 @@ import cx_Oracle
 import sys
 import commands
 import datetime
+from ..cai_python.getconn_util import get_conn
 
 v_datapath = '/mnt/data0/logs/dataware_house/to_oracle_data/clientgame'
 log_path = '/mnt/data0/logs/dataware_house/log'
@@ -37,11 +38,11 @@ def load_oracle(v_game, v_key, v_date, *type):
         if v_game in (1, 2, 3, 4, 5, 6, 7, 8, 9, 11, 12, 15, 17, 18, 72, 73, 164, 165,7102):
             v_table = 't_key_lib'
             v_ctlfile = '/scripts/dataware_house/program/config_file/t_key_lib.ctl'
-            ora_conn = 'mysql/mysql@10.14.250.16:1521/dfdb'
+            ora_conn = get_conn('mysql').cxoracle_link()
         else:
             v_table = 't_clientgame_key_lib'
             v_ctlfile = '/scripts/dataware_house/program/config_file/t_clientgame_key_lib.ctl'
-            ora_conn = 'hive/hive_2017@10.14.250.16:1521/dfdb'
+            ora_conn = get_conn('hive').cxoracle_link()
 
     # 将kpi数据导出文件
     if os.access(hive_data, os.F_OK):

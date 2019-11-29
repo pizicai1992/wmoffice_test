@@ -6,6 +6,7 @@ import jieba
 import cx_Oracle as cx
 import os
 import sys
+from ..cai_python.getconn_util import get_conn
 reload(sys)
 sys.setdefaultencoding( "utf-8" )
 os.environ['NLS_LANG'] = 'SIMPLIFIED CHINESE_CHINA.UTF8'
@@ -28,7 +29,7 @@ for j in key_list:
     print j
 
 print key_list[0]
-ora_conn = 'hive/hive_2017@10.14.250.17:1521/dfdb'
+ora_conn = get_conn('hive').cxoracle_link()
 db_conn = cx.connect(ora_conn)
 cursor = db_conn.cursor()
 cursor.prepare("select keyword from t_dic_hivedw_keyword where key_comment like :key_comment")

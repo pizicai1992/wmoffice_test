@@ -53,10 +53,8 @@ for sql in reql:
     sqlContext.sql(sql.strip())
 pyendtime = datetime.datetime.now()
 print 'pyspark exec times is :' + str((pyendtime - startTime).seconds) + ' seconds'
-databs = sqlContext.sql("""select * from default.test_lib2 where par_dt='""" + v_date
-"""' and par_game="""
-+ v_game
-""" and par_key = """ + v_keyid).collect()
+databs = sqlContext.sql("select * from default.test_lib2 where par_dt='%s' and par_game=%d and par_key=%d"
+                        % (v_date, int(v_game), int(v_keyid)))
 fl = open('list.txt', 'w')
 for i in databs:
     print '|'.join(
