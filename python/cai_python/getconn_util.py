@@ -13,7 +13,7 @@ import os
 
 class get_conn():
     def __init__(self,dbname):
-        self.ora_conf = 'E:/datawarehouse/datawarehouse/cfg/oracle_connect.config'
+        self.ora_conf = 'E:/datawarehouse/datawarehouse/program/config_file/ora_conf.xml'
        # self.ora_conf = '/scripts/dataware_house/program/config_file/ora_conf.xml'
         self.domtree = xml.dom.minidom.parse(self.ora_conf)
         self.databases = self.domtree.documentElement.getElementsByTagName('database')

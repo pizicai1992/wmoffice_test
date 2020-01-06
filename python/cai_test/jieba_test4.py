@@ -11,15 +11,19 @@ import jieba
 import cx_Oracle as cx
 import os
 import sys
-from ..cai_python.getconn_util import get_conn
+# sys.path.append('E:/cai_project/python/cai_python')
 reload(sys)
 sys.setdefaultencoding("utf-8")
+# from ..cai_python.getconn_util import get_conn
+from cai_python.getconn_util import get_conn
+
 os.environ['NLS_LANG'] = 'SIMPLIFIED CHINESE_CHINA.UTF8'
 
 class ora_Until():
     def __init__(self):
 
         self.ora_conn = get_conn('hive').cxoracle_link()
+        # print self.ora_conn
         self.db_conn = cx.connect(self.ora_conn)
         self.cursor = self.db_conn.cursor()
         self.sql = "select keyword from t_dic_hivedw_keyword where key_comment = :key_comment"
@@ -56,7 +60,7 @@ class keyname_split():
 
     def get_keyword(self):
         columnname = self.oraconn.get_column(self.keyname)
-        self.oraconn.oraconn_close()
+        # self.oraconn.oraconn_close()
         if columnname is not  None:
             print ' '.join(columnname)
         else:
@@ -82,7 +86,8 @@ class keyname_split():
 parser = OptionParser()
 parser.add_option("-k", "--keyname", dest="keyname", help="关键字")
 (options, args) = parser.parse_args()
-v_keyname = options.keyname
+# v_keyname = options.keyname
+v_keyname = '留存率'
 
 if __name__ == '__main__':
     print '中文关键字是 %s' % v_keyname
