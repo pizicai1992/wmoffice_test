@@ -7,7 +7,7 @@ class DBUtils(object):
     @staticmethod
     def getConnection(dbName='dt_sdb'):
         config = ConfigParser.RawConfigParser()
-        confFile = 'E:\datawarehouse\datawarehouse\cfg\oracle_connect.config'
+        confFile = 'D:\\datawarehouse\\cfg\\oracle_connect.config'
         config.read(confFile)
         ora_username = config.get(dbName, 'username')
         ora_password = config.get(dbName, 'password')
