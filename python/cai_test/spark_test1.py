@@ -7,10 +7,11 @@ from pyspark import SparkConf,SparkContext
 #from __future__ import print_function
 
 sc = SparkContext("local[2]", "test1")
+sc.setLogLevel("INFO")
 def pf(x):
     print x
 
-tfile = sc.textFile('E:\\UE_file\\1111').filter(lambda x:len(x)>0).flatMap(lambda x:x.split(' ')).filter(lambda x:len(x)>0)
+tfile = sc.textFile('E:\\work_files\\updte_hiveodi_status.log').filter(lambda x:len(x)>0).flatMap(lambda x:x.split(' ')).filter(lambda x:len(x)>0)
 word_count = tfile.map(lambda x:(x,1)).reduceByKey(lambda x,y: x+y)
 word_count.foreach(pf)
 # word_count.foreach(print)

@@ -1,12 +1,12 @@
 #!/usr/bin/python
 # -*- coding: UTF-8 -*-
 import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 import openpyxl
 from oracle_util import DBUtils as oracle
 from getconn_util import log_util as logutil
 from optparse import OptionParser
-reload(sys)
-sys.setdefaultencoding('utf-8')
 
 log = logutil('updte_hiveodi_status.log')
 # 1. 全量更新MySQL库的ODI配置表 T_ODI_HIVESYN_CONFIG
