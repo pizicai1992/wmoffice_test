@@ -20,7 +20,9 @@ class ImpalaUtil():
 
     def execute_sql(self, sql_string):
         self.cursor.execute(sql_string)
-        columns = [data[0] for data in self.cursor.description]
+        columns = []
+        if self.cursor.description:
+            columns = [data[0] for data in self.cursor.description]
         sql_result = self.cursor.fetchall()
         self._close()
         return columns, sql_result
@@ -50,4 +52,5 @@ if __name__ == '__main__':
     datafile = args.file
     print_header = args.printhead
     imp = ImpalaUtil()
-    imp.export_csv(sql_string=sql_str, data_file=datafile, print_header=print_header)
+    # imp.export_csv(sql_string=sql_str, data_file=datafile, print_header=print_header)
+    imp.execute_sql(sql_str)

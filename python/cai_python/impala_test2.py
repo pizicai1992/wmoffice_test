@@ -37,7 +37,10 @@ class ImpalaUtil():
             some Exception
         """
         self.cursor.execute(sql_string)
-        columns = [data[0] for data in self.cursor.description]
+        columns = []
+        sql_result = []
+        if self.cursor.description:
+            columns = [data[0] for data in self.cursor.description]
         sql_result = self.cursor.fetchall()
         # self._close()
         return columns, sql_result
