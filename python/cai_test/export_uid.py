@@ -63,7 +63,7 @@ def parse_arguments():
     parser.add_argument('-s','--startdate', required=True, help="指定流失用户的开始日期, example: 2014-01-01")
     parser.add_argument('-e','--enddate', required=True, help="指定流失用户的结束日期, example: 2019-12-01")
     parser.add_argument('-g','--gamelist', required=True, help="指定游戏列表, example: 2,3,4")
-    parser.add_argument('-t','--type', required=True, help="指定导出类型:1导出uid；2导出uid,lev, example: 2")
+    parser.add_argument('-t','--type', required=True, help="指定导出类型:1导出uid；2导出uid,lev,3导出付费用户uid, example: 2")
     args = parser.parse_args()
     startdate = args.startdate
     enddate = args.enddate
@@ -78,9 +78,12 @@ def main():
     if dtype == 1:
         SQL_FILE = '/var/lib/impala/test/cai_file/myscript/sms_dy_uid.sql'
         column_list = 'userid'
-    else:
+    elif dtype == 2:
         SQL_FILE = '/var/lib/impala/test/cai_file/myscript/sms_dy_uid_lev.sql'
         column_list = 'userid,lev'
+    else:
+        SQL_FILE = '/var/lib/impala/test/cai_file/myscript/sms_dy_uid_pay.sql'
+        column_list = 'userid'
     run_impala(sdate, edate, SQL_FILE)
     game_dict = {1:'完美世界', 2:'武林外传', 3:'完美国际', 4:'诛仙', 5:'赤壁' ,
              6:'热舞派对', 7:'口袋西游', 8:'神鬼传奇', 9:'梦幻诛仙', 11:'神魔大陆',

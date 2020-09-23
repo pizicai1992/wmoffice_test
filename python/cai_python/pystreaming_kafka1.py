@@ -5,9 +5,9 @@ import pyspark_init as pi
 from pyspark.streaming.kafka import KafkaUtils
 
 ssc = pi.streaming_init('streaming_kafka1','local[2]',3)
-brokers = "localhost:9092"
-topic = "testcai_1"
-zk = "localhost:2181"
+brokers = "192.168.10.10:9092"
+topic = "testcai"
+zk = "192.168.10.10:2181"
 
 kvs = KafkaUtils.createStream(ssc,zkQuorum=zk,topics={topic: 1},\
                               kafkaParams={"metadata.broker.list":brokers},groupId='test1')
