@@ -16,7 +16,7 @@ def ora_insert(dstream_data):
         paras.append(para)
 
     print paras
-    db_con = cx.connect('hive/hive_2017@10.14.250.51:1521/dfdb')
+    db_con = cx.connect('test/test_2017@192.168.10.10:1521/dfdb')
     cursor = db_con.cursor()
 
     try:

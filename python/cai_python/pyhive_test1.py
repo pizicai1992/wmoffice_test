@@ -3,7 +3,7 @@
 
 # from pyhive import hive
 #
-# conn = hive.connect(host='10.14.252.26', port=10001, username='impala',auth='NONE')
+# conn = hive.connect(host='192.168.10.10', port=10001, username='impala',auth='NONE')
 # cursor = conn.cursor()
 # sql='show tables'
 # cursor.execute(sql)
@@ -16,7 +16,7 @@
 
 from impala.dbapi import connect
 
-conn = connect(host='10.14.252.26', port=10001, auth_mechanism='PLAIN')
+conn = connect(host='192.168.10.10', port=10001, auth_mechanism='PLAIN')
 cur = conn.cursor()
 
 cur.execute('SHOW DATABASES')

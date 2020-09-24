@@ -97,7 +97,7 @@ def exec_cmd(cmd_str):
     result = os.popen(cmd_str)
     print result.read()
 
-conn = cx.connect('quartz3/quartz3@10.14.250.5:1521/wmdw')
+conn = cx.connect('testuser/testuser@192.168.10.10:1521/wmdw')
 cursor = conn.cursor()
 cursor.execute("select * from t_dic_sqoop_testcai")
 result = cursor.fetchall()

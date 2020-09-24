@@ -145,7 +145,7 @@ def print_sqoopcmd(column_str, jdbc, mysql_user, mysql_table, mysql_db, hive_db,
         sqoop_cmd_str = sqoop_hcatalog_base + '--map-column-hive ' + column_str + ' \\' + '\n'
         hive_table_existed = True
         try:
-            conn = pyhs2.connect(host='10.14.240.254', port=10182, authMechanism="PLAIN",
+            conn = pyhs2.connect(host='192.168.10.10', port=10182, authMechanism="PLAIN",
                                 user='impala', password='impala_+-', database=hive_db)
             cursor = conn.cursor()
             cursor.execute("""show tables '%s'""" % hive_table)
@@ -288,9 +288,9 @@ def main():
         os.makedirs(logpath)
     # log_util = log_utils(logfile)
     log_util = PyCommonFunc.LogUtil(logfile)
-    mysql_user = 'log_verification'
-    mysql_password = 'log_verification2020'
-    mysql_host = '10.14.240.254'
+    mysql_user = 'testuser'
+    mysql_password = 'testpssword'
+    mysql_host = '192.168.10.10'
     mysql_port = '3306'
     jdbc_link = 'jdbc:mysql://%s:%s/%s --username %s --password %s' % \
                 (mysql_host, mysql_port, mysql_base, mysql_user, mysql_password)

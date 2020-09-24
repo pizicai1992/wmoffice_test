@@ -16,8 +16,8 @@ class HiveUtil():
 
     def __init__(self, db_name='default'):
         self.dbname = db_name
-        self.conn = connect(host='10.14.240.254', port=10182, auth_mechanism='PLAIN',
-                            user='impala', password='impala_+-', database=self.dbname)
+        self.conn = connect(host='192.168.10.10', port=10182, auth_mechanism='PLAIN',
+                            user='testuser', password='testuser_+-', database=self.dbname)
         self.cursor = self.conn.cursor()
 
     def execute_sql(self, sql, ddl=False):

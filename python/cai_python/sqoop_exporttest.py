@@ -107,7 +107,7 @@ log_util = log_utils()
 
 log_util.log_info('************* Task Begin ****************')
 # 1. 判断表的字段分隔符、是否分区表
-conn = pyhs2.connect(host='10.14.250.70', port=10182, authMechanism="PLAIN", user='impala')
+conn = pyhs2.connect(host='192.168.10.10', port=10182, authMechanism="PLAIN", user='testuser')
 cur = conn.cursor()
 hivesql = "desc formatted " + str(v_hivetable)
 try:
